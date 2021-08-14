@@ -1,0 +1,16 @@
+http:
+  middlewares:
+    simpleAuth:
+      basicAuth:
+        users:
+          - 'admin:$apr1$cYlpCDch$9b.HV7ey1ljv9MYzKrOgu/' # htpasswd -nb admin admin
+  routers:
+    api:
+      rule: Host(`traefik.localhost`)
+      entrypoints:
+        - websecure
+      middlewares:
+        - simpleAuth
+      service: api@internal
+      tls:
+        certResolver: lets-encrypt

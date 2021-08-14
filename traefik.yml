@@ -1,0 +1,26 @@
+entryPoints:
+  web:
+    address: ':80'
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ':443'
+api:
+  dashboard: true
+certificatesResolvers:
+  lets-encrypt:
+    acme:
+      # caServer: "https://acme-staging.api.letsencrypt.org/directory"
+      email: admin@localhost
+      storage: acme.json
+      tlsChallenge: {}
+providers:
+  docker:
+    watch: true
+    network: proxy
+  file:
+    watch: true
+    filename: traefik_dynamic.yml
